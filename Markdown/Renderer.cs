@@ -29,25 +29,19 @@ namespace Markdown
                         builder.Append(n.Text);
                         break;
                     case TagNode n:
-                        builder.Append(RenderNode(n));
+                        builder.Append(RenderTagNode(n));
                         break;
                 }
             }
             return builder.ToString();
         }
 
-        private string RenderNode(TagNode node)
+        private string RenderTagNode(TagNode node)
         {
             if (!htmlTags.ContainsKey(node.Tag))
                 throw new ArgumentException("Tag does not exist", nameof(node));
-            if (node.IsBanned || !node.HasPair)
-                return node.Tag.Sequence;
-            return GetHtmlTag(htmlTags[node.Tag], node.IsOpeningTag);
-        }
 
-        private static string GetHtmlTag(string text, bool isOpeningTag)
-        {
-            return $"<{(isOpeningTag ? "" : "/")}{text}>";
+            return $"<{(node.NodeType == TagNodeType.Opening ? "" : "/")}{htmlTags[node.Tag]}>";
         }
     }
 }

@@ -1,17 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Markdown
 {
     public class Tag
     {
         public string Sequence { get; }
-        public ICollection<Tag> BannedTags { get; }
+        public ICollection<Tag> BannedTags => bannedTags; 
+        private readonly HashSet<Tag> bannedTags = new HashSet<Tag>();
 
-        public Tag(string sequence, IEnumerable<Tag> bannedTags)
+        public Tag(string sequence)
         {
             Sequence = sequence;
-            BannedTags = new HashSet<Tag>(bannedTags ?? Enumerable.Empty<Tag>());
+        }
+
+        public Tag AddBannedTag(Tag tag)
+        {
+            if (!bannedTags.Add(tag))
+                throw new ArgumentException("Tag already exists", nameof(tag));
+            return this;
         }
     }
 }

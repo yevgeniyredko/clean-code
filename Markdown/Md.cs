@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Markdown
+﻿namespace Markdown
 {
     public class Md
     {
@@ -9,8 +7,9 @@ namespace Markdown
 
         public Md()
         {
-            var strong = new Tag("__", null);
-            var em = new Tag("_", new[] {strong});
+            var strong = new Tag("__");
+            var em = new Tag("_")
+                .AddBannedTag(strong);
             parser = new Parser()
                 .AddTag(em)
                 .AddTag(strong);

@@ -58,6 +58,7 @@
     <Compile Include="StringNode.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagNode.cs" />
+    <Compile Include="TagNodeType.cs" />
     <Compile Include="TagType.cs" />
   </ItemGroup>
   <ItemGroup>
